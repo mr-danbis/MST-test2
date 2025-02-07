@@ -11,6 +11,24 @@ $minWidth: 320;
 }
 
 
+@mixin adaptiv-width($pcValue, $mobValue) {
+  $addSize: $pcValue - $mobValue;
+  $differenceWidth: $maxWidth - $minWidth;
+  width: calc(
+    #{$mobValue + px} + #{$addSize} *
+      ((100vw - #{$minWidth + px}) / #{$differenceWidth})
+  );
+}
+
+@mixin adaptiv-height($pcValue, $mobValue) {
+  $addSize: $pcValue - $mobValue;
+  $differenceWidth: $maxWidth - $minWidth;
+  height: calc(
+    #{$mobValue + px} + #{$addSize} *
+      ((100vw - #{$minWidth + px}) / #{$differenceWidth})
+  );
+}
+
 
 @mixin adaptiv-padding($pcValue, $mobValue) {
   $addSize: $pcValue - $mobValue;

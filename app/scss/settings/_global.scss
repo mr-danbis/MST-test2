@@ -2,33 +2,35 @@ body {
     position: relative;
     background-color: #000;
     color: #fff;
-    font-size: 100px;
+    @include adaptiv-font(100,20);
+}
+
+main{
+    width:90%;
+    margin: 0 auto;
+    @include adaptiv-paddingTop(50,20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .video-background {
+    margin: 0 20px;
+    flex-grow: 1;
     position: relative;
     overflow: hidden;
-    height: 100px;
+    @include adaptiv-height(80,20);
     display: inline-block;
 }
 
 .myVideo {
     position: absolute;
-}
-
-
-.background1 {
-    width: 700px;
-}
-
-.background2 {
-    width: 500px;
-}
-
-.background3 {
-    width: 600px;
-}
-
-.background4 {
-    width: 1000px;
+    width: 100vw;
 }

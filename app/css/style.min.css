@@ -177,32 +177,59 @@ body {
   position: relative;
   background-color: #000;
   color: #fff;
-  font-size: 100px;
+  font-size: calc(
+    20px + 80 *
+      ((100vw - 320px) / 1600)
+  );
+}
+
+main {
+  width: 90%;
+  margin: 0 auto;
+  padding-top: calc(
+    20px + 30 *
+      ((100vw - 320px) / 1600)
+  );
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.row {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .video-background {
+  margin: 0 20px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   position: relative;
   overflow: hidden;
-  height: 100px;
+  height: calc(
+    20px + 60 *
+      ((100vw - 320px) / 1600)
+  );
   display: inline-block;
 }
 
 .myVideo {
   position: absolute;
-}
-
-.background1 {
-  width: 700px;
-}
-
-.background2 {
-  width: 500px;
-}
-
-.background3 {
-  width: 600px;
-}
-
-.background4 {
-  width: 1000px;
+  width: 100vw;
 }
