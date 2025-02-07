@@ -18,11 +18,11 @@ function html() {
 
 function styles() {
   return src("app/scss/style.scss")
-    .pipe(scss({ outputStyle: "compressed" }).on("error", function(error) {
+    .pipe(scss({ outputStyle: "expanded" }).on("error", function(error) {
       console.log(error.toString());
       this.emit('end');
     }))
-    .pipe(concat("style.min.css"))
+    .pipe(concat("style.css"))
     .pipe(
       autoprefixer({
         overrideBrowserslist: ["last 10 version"],
@@ -74,7 +74,6 @@ function build() {
     'app/css/style.css',
     'app/js/*.js',
     "!app/js/main.min.js",
-    'app/fonts/**/*',
   ], {base: 'app'})
     .pipe(dest('docs'));
 }
@@ -96,7 +95,8 @@ exports.cleanDocs = cleanDocs;
 exports.cleanPages = cleanPages;
 exports.html = html;
 
-exports.build = series(cleanDocs, images, build, videos);
+// exports.build = series(cleanDocs, images, build, videos);
+exports.build = series(build);
 exports.default = parallel(
   cleanPages,
   html,
