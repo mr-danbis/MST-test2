@@ -46,11 +46,11 @@ function scripts() {
 
 
 function images() {
-  return src("app/images/**/*").pipe(dest("dist/images"));
+  return src("app/images/**/*").pipe(dest("docs/images"));
 }
 
 function videos() {
-  return src("app/videos/*").pipe(dest("dist/videos"));
+  return src("app/videos/*").pipe(dest("docs/videos"));
 }
 
 function browsersync() {
@@ -77,11 +77,11 @@ function build() {
     'app/fonts/**/*',
     //'app/favicon.ico'
   ], {base: 'app'})
-    .pipe(dest('dist'));
+    .pipe(dest('docs'));
 }
 
-function cleanDist() {
-  return del("dist");
+function cleanDocs() {
+  return del("docs");
 }
 
 function cleanPages() {
@@ -93,11 +93,11 @@ exports.watching = watching;
 exports.browsersync = browsersync;
 exports.scripts = scripts;
 exports.images = images;
-exports.cleanDist = cleanDist;
+exports.cleanDocs = cleanDocs;
 exports.cleanPages = cleanPages;
 exports.html = html;
 
-exports.build = series(cleanDist, images, build, videos);
+exports.build = series(cleanDocs, images, build, videos);
 exports.default = parallel(
   cleanPages,
   html,
