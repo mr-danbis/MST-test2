@@ -71,11 +71,10 @@ function watching() {
 function build() {
   return src([
     'app/*.html',
-    'app/css/style.min.css',
+    'app/css/style.css',
     'app/js/*.js',
-    "!app/js/main.js",
+    "!app/js/main.min.js",
     'app/fonts/**/*',
-    //'app/favicon.ico'
   ], {base: 'app'})
     .pipe(dest('docs'));
 }
