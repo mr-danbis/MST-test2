@@ -4,8 +4,8 @@ const scss = require("gulp-sass")(require("sass"));
 const concat = require("gulp-concat");
 const browserSync = require("browser-sync").create();
 const uglify = require("gulp-uglify-es").default;
-const autoprefixer = require("gulp-autoprefixer");
-const del = require("del");
+const autoprefixer = require('gulp-autoprefixer').default;
+const { deleteAsync } = require('del');
 const fileinclude = require("gulp-file-include");
 
 function html() {
@@ -18,11 +18,8 @@ function html() {
 
 function styles() {
   return src("app/scss/style.scss")
-    .pipe(scss({ outputStyle: "expanded" }).on("error", function(error) {
-      console.log(error.toString());
-      this.emit('end');
-    }))
-    .pipe(concat("style.css"))
+    .pipe(scss({ style: "compressed" }).on('error', scss.logError))
+    .pipe(concat("style.min.css"))
     .pipe(
       autoprefixer({
         overrideBrowserslist: ["last 10 version"],
@@ -45,13 +42,9 @@ function scripts() {
 }
 
 
-function images() {
-  return src("app/images/**/*").pipe(dest("docs/images"));
-}
-
-function videos() {
-  return src("app/videos/*").pipe(dest("docs/videos"));
-}
+// function images() {
+//   return src("app/images/**/*").pipe(dest("docs/images"));
+// }
 
 function browsersync() {
   browserSync.init({
@@ -65,37 +58,31 @@ function browsersync() {
 function watching() {
   watch(["app/pages/*.html", "app/blocks/**/*.html"], html);
   watch(["app/scss/**/*.scss", "app/blocks/**/*.scss"], styles);
-  watch(["app/js/**/*.js", "!app/js/main.min.js"], scripts);
+  watch(["app/js/**/main.js"], scripts);
 }
 
 function build() {
   return src([
     'app/*.html',
-    'app/css/style.css',
-    'app/js/*.js',
-    "!app/js/main.min.js",
+    'app/css/*.css',
+    "app/js/main.min.js",
+    // 'app/fonts/**/*',
   ], {base: 'app'})
     .pipe(dest('docs'));
 }
 
-function cleanDocs() {
-  return del("docs");
-}
-
 function cleanPages() {
-  return del("app/*.html");
+  return deleteAsync("app/*.html");
 }
 
 exports.styles = styles;
 exports.watching = watching;
 exports.browsersync = browsersync;
 exports.scripts = scripts;
-exports.images = images;
-exports.cleanDocs = cleanDocs;
+// exports.images = images;
 exports.cleanPages = cleanPages;
 exports.html = html;
 
-// exports.build = series(cleanDocs, images, build, videos);
 exports.build = series(build);
 exports.default = parallel(
   cleanPages,
